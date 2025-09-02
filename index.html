@@ -17,12 +17,27 @@
             theme: {
                 extend: {
                     colors: {
-                        gold: '#D4AF37',
-                        dark: '#1a202c',
-                        darklight: '#2d3748',
+                        gold: '#FDB813',
+                        goldlight: '#FFD700',
+                        primary: '#4361EE',
+                        secondary: '#3A0CA3',
+                        accent: '#7209B7',
+                        teal: '#4CC9F0',
+                        pink: '#F72585',
                     },
                     fontFamily: {
                         'nepali': ['Hind Siliguri', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
                     }
                 }
             }
@@ -32,45 +47,151 @@
         body {
             font-family: 'Hind Siliguri', sans-serif;
             scroll-behavior: smooth;
+            background: linear-gradient(135deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+            background-attachment: fixed;
         }
         .hero-bg {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3') no-repeat center center/cover;
+            background: linear-gradient(125deg, rgba(58, 12, 163, 0.85) 0%, rgba(114, 9, 183, 0.85) 50%, rgba(247, 37, 133, 0.85) 100%), url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3') no-repeat center center/cover;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4361EE 0%, #3A0CA3 50%, #7209B7 100%);
+        }
+        .gradient-bg-2 {
+            background: linear-gradient(135deg, #7209B7 0%, #3A0CA3 50%, #4361EE 100%);
+        }
+        .gradient-bg-3 {
+            background: linear-gradient(135deg, #F72585 0%, #7209B7 50%, #3A0CA3 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 50%, #FFFFFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-border {
+            border: double 3px transparent;
+            background-image: linear-gradient(rgb(26, 20, 43), rgb(26, 20, 43)), 
+                              linear-gradient(135deg, #4361EE 0%, #3A0CA3 50%, #7209B7 100%);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
         }
         .album-card, .product-card {
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
         }
         .album-card:hover, .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
         .gallery-img {
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
         }
         .gallery-img:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 10px 25px rgba(247, 37, 133, 0.4);
+        }
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        .music-bar {
+            animation: pulse 2s ease infinite;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            bottom: -10px;
+            left: 20%;
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+        }
+        .testimonial-card {
+            perspective: 1000px;
+        }
+        .testimonial-inner {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .testimonial-card:hover .testimonial-inner {
+            transform: rotateY(180deg);
+        }
+        .testimonial-front, .testimonial-back {
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+        }
+        .testimonial-back {
+            transform: rotateY(180deg);
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-bg {
+            background: linear-gradient(-45deg, #3A0CA3, #4361EE, #7209B7, #F72585);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
-<body class="bg-dark text-white font-nepali">
+<body class="text-white font-nepali">
+    <!-- Animated Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -left-20 -top-20 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-20 animate-pulse-slow"></div>
+        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-pink-600 rounded-full filter blur-3xl opacity-20 animate-bounce-slow"></div>
+        <div class="absolute left-1/4 top-1/3 w-64 h-64 bg-teal-500 rounded-full filter blur-3xl opacity-20 animate-float"></div>
+    </div>
+
     <!-- Navigation Bar -->
-    <nav class="bg-darklight fixed w-full z-50 shadow-lg">
+    <nav class="bg-black/70 backdrop-blur-md fixed w-full z-50 shadow-lg border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="#" class="text-gold text-xl font-bold">सन्तोष पन्थी</a>
+                    <a href="#" class="text-xl font-bold gradient-text">सन्तोष पन्थी</a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-white hover:text-gold">गृहपृष्ठ</a>
-                    <a href="#about" class="text-white hover:text-gold">परिचय/जीवन यात्रा</a>
-                    <a href="#music" class="text-white hover:text-gold">संगीत</a>
-                    <a href="#albums" class="text-white hover:text-gold">एल्बम/गीतहरू</a>
-                    <a href="#gallery" class="text-white hover:text-gold">ग्यालरी</a>
-                    <a href="#videos" class="text-white hover:text-gold">भिडियो</a>
-                    <a href="#events" class="text-white hover:text-gold">कार्यक्रमहरू</a>
-                    <a href="#awards" class="text-white hover:text-gold">पुरस्कार</a>
-                    <a href="#news" class="text-white hover:text-gold">समाचार/ब्लग</a>
-                    <a href="#feedback" class="text-white hover:text-gold">फ्यान प्रतिक्रिया</a>
-                    <a href="#merch" class="text-white hover:text-gold">मर्च</a>
-                    <a href="#contact" class="text-white hover:text-gold">सम्पर्क</a>
+                    <a href="#home" class="nav-link text-white hover:text-goldlight transition">गृहपृष्ठ</a>
+                    <a href="#about" class="nav-link text-white hover:text-goldlight transition">परिचय/जीवन यात्रा</a>
+                    <a href="#music" class="nav-link text-white hover:text-goldlight transition">संगीत</a>
+                    <a href="#albums" class="nav-link text-white hover:text-goldlight transition">एल्बम/गीतहरू</a>
+                    <a href="#gallery" class="nav-link text-white hover:text-goldlight transition">ग्यालरी</a>
+                    <a href="#videos" class="nav-link text-white hover:text-goldlight transition">भिडियो</a>
+                    <a href="#events" class="nav-link text-white hover:text-goldlight transition">कार्यक्रमहरू</a>
+                    <a href="#awards" class="nav-link text-white hover:text-goldlight transition">पुरस्कार</a>
+                    <a href="#news" class="nav-link text-white hover:text-goldlight transition">समाचार/ब्लग</a>
+                    <a href="#feedback" class="nav-link text-white hover:text-goldlight transition">फ्यान प्रतिक्रिया</a>
+                    <a href="#merch" class="nav-link text-white hover:text-goldlight transition">मर्च</a>
+                    <a href="#contact" class="nav-link text-white hover:text-goldlight transition">सम्पर्क</a>
                 </div>
                 <div class="md:hidden flex items-center">
                     <button id="menu-btn" class="text-white">
@@ -80,424 +201,755 @@
             </div>
         </div>
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-darklight px-4 pt-2 pb-3">
+        <div id="mobile-menu" class="md:hidden hidden bg-black/95 backdrop-blur-md px-4 pt-2 pb-3">
             <div class="flex flex-col space-y-3">
-                <a href="#home" class="text-white hover:text-gold">गृहपृष्ठ</a>
-                <a href="#about" class="text-white hover:text-gold">परिचय/जीवन यात्रा</a>
-                <a href="#music" class="text-white hover:text-gold">संगीत</a>
-                <a href="#albums" class="text-white hover:text-gold">एल्बम/गीतहरू</a>
-                <a href="#gallery" class="text-white hover:text-gold">ग्यालरी</a>
-                <a href="#videos" class="text-white hover:text-gold">भिडियो</a>
-                <a href="#events" class="text-white hover:text-gold">कार्यक्रमहरू</a>
-                <a href="#awards" class="text-white hover:text-gold">पुरस्कार</a>
-                <a href="#news" class="text-white hover:text-gold">समाचार/ब्लग</a>
-                <a href="#feedback" class="text-white hover:text-gold">फ्यान प्रतिक्रिया</a>
-                <a href="#merch" class="text-white hover:text-gold">मर्च</a>
-                <a href="#contact" class="text-white hover:text-gold">सम्पर्क</a>
+                <a href="#home" class="text-white hover:text-goldlight py-2">गृहपृष्ठ</a>
+                <a href="#about" class="text-white hover:text-goldlight py-2">परिचय/जीवन यात्रा</a>
+                <a href="#music" class="text-white hover:text-goldlight py-2">संगीत</a>
+                <a href="#albums" class="text-white hover:text-goldlight py-2">एल्बम/गीतहरू</a>
+                <a href="#gallery" class="text-white hover:text-goldlight py-2">ग्यालरी</a>
+                <a href="#videos" class="text-white hover:text-goldlight py-2">भिडियो</a>
+                <a href="#events" class="text-white hover:text-goldlight py-2">कार्यक्रमहरू</a>
+                <a href="#awards" class="text-white hover:text-goldlight py-2">पुरस्कार</a>
+                <a href="#news" class="text-white hover:text-goldlight py-2">समाचार/ब्लग</a>
+                <a href="#feedback" class="text-white hover:text-goldlight py-2">फ्यान प्रतिक्रिया</a>
+                <a href="#merch" class="text-white hover:text-goldlight py-2">मर्च</a>
+                <a href="#contact" class="text-white hover:text-goldlight py-2">सम्पर्क</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-bg h-screen flex items-center justify-center pt-16">
-        <div class="text-center px-4" data-aos="fade-up">
-            <h1 class="text-4xl md:text-6xl font-bold text-gold mb-4">सन्तोष पन्थी</h1>
-            <p class="text-xl md:text-2xl mb-8">"नेपालका उदाउँदो दोहोरी गायक"</p>
-            <a href="#music" class="bg-gold text-dark font-bold px-6 py-3 rounded-full hover:bg-yellow-500 transition">मेरो संगीत सुन्नुहोस्</a>
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <div class="floating-element absolute top-10 left-10 w-20 h-20 bg-gold/20 rounded-full"></div>
+        <div class="floating-element absolute top-1/4 right-20 w-16 h-16 bg-teal/30 rounded-full" style="animation-delay: 1s;"></div>
+        <div class="floating-element absolute bottom-20 left-1/4 w-24 h-24 bg-pink/20 rounded-full" style="animation-delay: 2s;"></div>
+        
+        <div class="text-center px-4 z-10" data-aos="zoom-in" data-aos-duration="1500">
+            <h1 class="text-5xl md:text-7xl font-bold gradient-text mb-4">सन्तोष पन्थी</h1>
+            <p class="text-xl md:text-3xl mb-8 text-white font-light">"नेपालका उदाउँदो दोहोरी गायक"</p>
+            <a href="#music" class="inline-block gradient-bg text-white font-bold px-8 py-4 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-300 shadow-lg">
+                मेरो संगीत सुन्नुहोस् <i class="ml-2 fas fa-arrow-down"></i>
+            </a>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <div class="animate-bounce flex flex-col items-center">
+                <span class="text-white text-sm mb-2">अझै जान्नुहोस्</span>
+                <i class="fas fa-chevron-down text-goldlight"></i>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-darklight">
+    <section id="about" class="py-20 relative overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-600 rounded-full filter blur-3xl opacity-10"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">परिचय / जीवन यात्रा</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">परिचय / जीवन यात्रा</h2>
             <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/3 mb-8 md:mb-0" data-aos="fade-right">
-                    <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-4.0.3" alt="Santosh Panthee" class="rounded-lg shadow-lg">
+                <div class="md:w-2/5 mb-8 md:mb-0" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="gradient-border rounded-2xl p-2">
+                        <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-4.0.3" alt="Santosh Panthee" class="rounded-2xl shadow-2xl">
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <div class="music-bar w-2 h-12 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full"></div>
+                        <div class="music-bar w-2 h-8 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full" style="animation-delay: 0.2s;"></div>
+                        <div class="music-bar w-2 h-16 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full" style="animation-delay: 0.4s;"></div>
+                        <div class="music-bar w-2 h-10 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full" style="animation-delay: 0.6s;"></div>
+                        <div class="music-bar w-2 h-14 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full" style="animation-delay: 0.8s;"></div>
+                    </div>
                 </div>
-                <div class="md:w-2/3 md:pl-12" data-aos="fade-left">
-                    <p class="text-lg mb-4">
+                <div class="md:w-3/5 md:pl-12" data-aos="fade-left" data-aos-duration="1000">
+                    <p class="text-lg mb-6 leading-relaxed">
                         सन्तोष पन्थी नेपाली संगीत जगतमा एक परिचित नाम बन्ने उदाउँदो दोहोरी गायक हुन्। उनको जन्म पूर्वी नेपालको सुन्दर जिल्ला पाँचथरमा भएको थियो। बाल्यकालदेखि नै संगीतप्रतिक झुकाव भएका सन्तोषले सानै उमेरमा स्थानीय सांस्कृतिक कार्यक्रमहरूमा आफ्नो प्रतिभा देखाउन सुरु गरेका थिए।
                     </p>
-                    <p class="text-lg">
+                    <p class="text-lg mb-6 leading-relaxed">
                         उनले आफ्नो संगीत यात्रा स्थानीय रेडियो स्टेशनबाट सुरु गरेका थिए भने हाल उनले धेरै चर्चित दोहोरी गीतहरूमा आवाज दिएका छन्। उनको मधुर आवाज र संगीतप्रतिक समर्पणले गर्दा नेपाली सांगीतिक क्षेत्रमा उनी एक प्रतिभाशाली कलाकारको रूपमा परिचित छन्।
                     </p>
+                    <p class="text-lg leading-relaxed">
+                        सन्तोषले आफ्नो संगीतिक यात्रामा धेरै उतारचढाव आइपुगे तापनि उनले आफ्नो लक्ष्यबाट कहिल्यै पनि हार मानेनन्। उनको समर्पण र परिश्रमको कारणले नै आज उनी नेपाली दोहोरी संगीतको एक चिनारी बनेका छन्। उनले आफ्नो संगीत मार्फत नेपाली सांस्कृतिक धरोहरलाई संरक्षण गर्ने र युवा पुस्तालाई दोहोरी संगीतप्रति आकर्षित गर्ने काम गरिरहेका छन्।
+                    </p>
+                    <div class="mt-8 flex space-x-4">
+                        <div class="gradient-bg px-6 py-2 rounded-full text-sm">दोहोरी गायक</div>
+                        <div class="gradient-bg-2 px-6 py-2 rounded-full text-sm">संगीत निर्देशक</div>
+                        <div class="gradient-bg-3 px-6 py-2 rounded-full text-sm">गीतकार</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Music Section -->
-    <section id="music" class="py-16 bg-dark">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">मेरो संगीत</h2>
+    <section id="music" class="py-20 gradient-bg-2 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <div class="absolute top-20 left-20 text-8xl opacity-20"><i class="fas fa-music"></i></div>
+            <div class="absolute bottom-20 right-20 text-8xl opacity-20"><i class="fas fa-music"></i></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">मेरो संगीत</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Song 1 -->
-                <div class="bg-darklight p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-xl font-bold text-gold mb-2">पहाडको चुरो</h3>
-                    <p class="text-gray-400 mb-4">दोहोरी गीत</p>
-                    <audio controls class="w-full mb-4">
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="flip-up" data-aos-delay="100">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-goldlight">पहाडको चुरो</h3>
+                        <div class="text-2xl text-pink-400"><i class="fas fa-heart"></i></div>
+                    </div>
+                    <p class="text-gray-300 mb-4">दोहोरी गीत</p>
+                    <div class="mb-6 h-1 bg-white/20 rounded-full">
+                        <div class="h-1 bg-gradient-to-r from-gold to-goldlight rounded-full w-1/3"></div>
+                    </div>
+                    <audio controls class="w-full mb-4 rounded-lg">
                         <source src="#" type="audio/mpeg">
                         तपाईंको ब्राउजरले audio element लाई सपोर्ट गर्दैन।
                     </audio>
-                    <p class="text-gray-300">यो गीतमा पहाडको सुन्दरतालाई दोहोरी शैलीमा प्रस्तुत गरिएको छ।</p>
+                    <p class="text-gray-200">यो गीतमा पहाडको सुन्दरतालाई दोहोरी शैलीमा प्रस्तुत गरिएको छ।</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-sm text-gray-400">४:३०</span>
+                        <div class="flex space-x-2">
+                            <button class="text-goldlight hover:text-white"><i class="fas fa-share-alt"></i></button>
+                            <button class="text-goldlight hover:text-white"><i class="fas fa-download"></i></button>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Song 2 -->
-                <div class="bg-darklight p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-xl font-bold text-gold mb-2">मेरो देश नेपाल</h3>
-                    <p class="text-gray-400 mb-4">देशभक्ति गीत</p>
-                    <audio controls class="w-full mb-4">
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="flip-up" data-aos-delay="200">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-goldlight">मेरो देश नेपाल</h3>
+                        <div class="text-2xl text-pink-400"><i class="fas fa-heart"></i></div>
+                    </div>
+                    <p class="text-gray-300 mb-4">देशभक्ति गीत</p>
+                    <div class="mb-6 h-1 bg-white/20 rounded-full">
+                        <div class="h-1 bg-gradient-to-r from-gold to-goldlight rounded-full w-2/3"></div>
+                    </div>
+                    <audio controls class="w-full mb-4 rounded-lg">
                         <source src="#" type="audio/mpeg">
                         तपाईंको ब्राउजरले audio element लाई सपोर्ट गर्दैन।
                     </audio>
-                    <p class="text-gray-300">नेपालको प्राकृतिक सुन्दरता र वीरताको बारेमा रचिएको दोहोरी गीत।</p>
+                    <p class="text-gray-200">नेपालको प्राकृतिक सुन्दरता र वीरताको बारेमा रचिएको दोहोरी गीत।</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-sm text-gray-400">५:१५</span>
+                        <div class="flex space-x-2">
+                            <button class="text-goldlight hover:text-white"><i class="fas fa-share-alt"></i></button>
+                            <button class="text-goldlight hover:text-white"><i class="fas fa-download"></i></button>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Song 3 -->
-                <div class="bg-darklight p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="text-xl font-bold text-gold mb-2">माया को बन्धन</h3>
-                    <p class="text-gray-400 mb-4">प्रेम गीत</p>
-                    <audio controls class="w-full mb-4">
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="flip-up" data-aos-delay="300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-goldlight">माया को बन्धन</h3>
+                        <div class="text-2xl text-pink-400"><i class="fas fa-heart"></i></div>
+                    </div>
+                    <p class="text-gray-300 mb-4">प्रेम गीत</p>
+                    <div class="mb-6 h-1 bg-white/20 rounded-full">
+                        <div class="h-1 bg-gradient-to-r from-gold to-goldlight rounded-full w-1/2"></div>
+                    </div>
+                    <audio controls class="w-full mb-4 rounded-lg">
                         <source src="#" type="audio/mpeg">
                         तपाईंको ब्राउजरले audio element लाई सपोर्ट गर्दैन।
                     </audio>
-                    <p class="text-gray-300">प्रेम र सम्बन्धको गहिराइलाई दोहोरी शैलीमा उतारिएको गीत।</p>
+                    <p class="text-gray-200">प्रेम र सम्बन्धको गहिराइलाई दोहोरी शैलीमा उतारिएको गीत।</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-sm text-gray-400">४:०५</span>
+                        <div class="flex space-x-2">
+                            <button class="text-goldlight hover:text-white"><i class="fas fa-share-alt"></i></button>
+                            <button class="text-goldlight hover:text-white"><i class="fas fa-download"></i></button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    सबै गीतहरू हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Albums Section -->
-    <section id="albums" class="py-16 bg-darklight">
+    <section id="albums" class="py-20 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">एल्बम / गीतहरू</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">एल्बम / गीतहरू</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Album 1 -->
-                <div class="album-card bg-dark p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-4.0.3" alt="Album 1" class="rounded-lg mb-4">
-                    <h3 class="text-xl font-bold text-gold mb-2">पहाडको सपना</h3>
-                    <p class="text-gray-400 mb-4">२०२१</p>
-                    <p class="text-gray-300">यो एल्बममा पहाडी जीवनशैली र संस्कृतिलाई समेटिएका १० वटा दोहोरी गीतहरू समावेश छन्।</p>
+                <div class="album-card bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-4.0.3" alt="Album 1" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">पहाडको सपना</h3>
+                    <p class="text-gray-400 mb-4">२०२१ | १० गीतहरू</p>
+                    <p class="text-gray-300 mb-6">यो एल्बममा पहाडी जीवनशैली र संस्कृतिलाई समेटिएका १० वटा दोहोरी गीतहरू समावेश छन्।</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-goldlight font-bold">रु. ५००</span>
+                        <button class="gradient-bg text-white px-4 py-2 rounded-full text-sm hover:shadow-lg">किन्नुहोस्</button>
+                    </div>
                 </div>
                 
                 <!-- Album 2 -->
-                <div class="album-card bg-dark p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3" alt="Album 2" class="rounded-lg mb-4">
-                    <h3 class="text-xl font-bold text-gold mb-2">मेरो यात्रा</h3>
-                    <p class="text-gray-400 mb-4">२०२२</p>
-                    <p class="text-gray-300">संगीतयात्राका विभिन्न पाटाहरूलाई समेटिएको यो एल्बममा ८ वटा गीतहरू रहेका छन्।</p>
+                <div class="album-card bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3" alt="Album 2" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">मेरो यात्रा</h3>
+                    <p class="text-gray-400 mb-4">२०२२ | ८ गीतहरू</p>
+                    <p class="text-gray-300 mb-6">संगीतयात्राका विभिन्न पाटाहरूलाई समेटिएको यो एल्बममा ८ वटा गीतहरू रहेका छन्।</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-goldlight font-bold">रु. ४५०</span>
+                        <button class="gradient-bg text-white px-4 py-2 rounded-full text-sm hover:shadow-lg">किन्नुहोस्</button>
+                    </div>
                 </div>
                 
                 <!-- Album 3 -->
-                <div class="album-card bg-dark p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3" alt="Album 3" class="rounded-lg mb-4">
-                    <h3 class="text-xl font-bold text-gold mb-2">सांस्कृतिक धरोहर</h3>
-                    <p class="text-gray-400 mb-4">२०२३</p>
-                    <p class="text-gray-300">नेपाली सांस्कृतिक परम्परालाई अँगाल्ने १२ वटा दोहोरी गीतहरू समावेश भएको एल्बम।</p>
+                <div class="album-card bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3" alt="Album 3" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">सांस्कृतिक धरोहर</h3>
+                    <p class="text-gray-400 mb-4">२०२३ | १२ गीतहरू</p>
+                    <p class="text-gray-300 mb-6">नेपाली सांस्कृतिक परम्परालाई अँगाल्ने १२ वटा दोहोरी गीतहरू समावेश भएको एल्बम।</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-goldlight font-bold">रु. ६००</span>
+                        <button class="gradient-bg text-white px-4 py-2 rounded-full text-sm hover:shadow-lg">किन्नुहोस्</button>
+                    </div>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    सबै एल्बमहरू हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="py-16 bg-dark">
+    <section id="gallery" class="py-20 gradient-bg relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">ग्यालरी</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">ग्यालरी</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <!-- Repeat for 8 images -->
-                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="100">
+                <div class="overflow-hidden rounded-2xl shadow-2xl" data-aos="zoom-in" data-aos-delay="100">
                     <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3" alt="Gallery image" class="gallery-img w-full h-48 object-cover">
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="150">
+                <div class="overflow-hidden rounded-2xl shadow-2xl" data-aos="zoom-in" data-aos-delay="150">
                     <img src="https://images.unsplash.com/photo-1541689592655-f5f52825a3b8?ixlib=rb-4.0.3" alt="Gallery image" class="gallery-img w-full h-48 object-cover">
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="200">
+                <div class="overflow-hidden rounded-2xl shadow-2xl" data-aos="zoom-in" data-aos-delay="200">
                     <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?ixlib=rb-4.0.3" alt="Gallery image" class="gallery-img w-full h-48 object-cover">
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="250">
+                <div class="overflow-hidden rounded-2xl shadow-2xl" data-aos="zoom-in" data-aos-delay="250">
                     <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-4.0.3" alt="Gallery image" class="gallery-img w-full h-48 object-cover">
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="300">
+                <div class="overflow-hidden rounded-2xl shadow-2xl" data-aos="zoom-in" data-aos-delay="300">
                     <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3" alt="Gallery image" class="gallery-img w-full h-48 object-cover">
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="350">
+                <div class="overflow-hidden rounded-2xl shadow-2xl" data-aos="zoom-in" data-aos-delay="350">
                     <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?ixlib=rb-4.0.3" alt="Gallery image" class="gallery-img w-full h-48 object-cover">
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="400">
+                <div class="overflow-hidden rounded-2xl shadow-2xl" data-aos="zoom-in" data-aos-delay="400">
                     <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3" alt="Gallery image" class="gallery-img w-full h-48 object-cover">
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="450">
+                <div class="overflow-hidden rounded-2xl shadow-2xl" data-aos="zoom-in" data-aos-delay="450">
                     <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3" alt="Gallery image" class="gallery-img w-full h-48 object-cover">
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    थप तस्वीरहरू हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Videos Section -->
-    <section id="videos" class="py-16 bg-darklight">
+    <section id="videos" class="py-20 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">भिडियोहरू</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">भिडियोहरू</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Video 1 -->
-                <div class="aspect-w-16 aspect-h-9" data-aos="fade-up" data-aos-delay="100">
-                    <iframe src="https://www.youtube.com/embed/6S9c5nnDd_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 md:h-80 rounded-lg shadow-lg"></iframe>
+                <div class="gradient-border rounded-2xl p-2" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
+                        <iframe src="https://www.youtube.com/embed/6S9c5nnDd_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 md:h-80 rounded-xl"></iframe>
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mt-4 mb-2">पहाडको चुरो - आधिकारिक भिडियो</h3>
+                    <p class="text-gray-300">यो भिडियोमा पहाडको सुन्दरतालाई दोहोरी शैलीमा प्रस्तुत गरिएको छ।</p>
                 </div>
                 
                 <!-- Video 2 -->
-                <div class="aspect-w-16 aspect-h-9" data-aos="fade-up" data-aos-delay="200">
-                    <iframe src="https://www.youtube.com/embed/6S9c5nnDd_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 md:h-80 rounded-lg shadow-lg"></iframe>
+                <div class="gradient-border rounded-2xl p-2" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
+                        <iframe src="https://www.youtube.com/embed/6S9c5nnDd_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 md:h-80 rounded-xl"></iframe>
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mt-4 mb-2">मेरो देश नेपाल - आधिकारिक भिडियो</h3>
+                    <p class="text-gray-300">नेपालको प्राकृतिक सुन्दरता र वीरताको बारेमा रचिएको दोहोरी गीत।</p>
                 </div>
                 
                 <!-- Video 3 -->
-                <div class="aspect-w-16 aspect-h-9 md:col-span-2" data-aos="fade-up" data-aos-delay="300">
-                    <iframe src="https://www.youtube.com/embed/6S9c5nnDd_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 md:h-96 rounded-lg shadow-lg"></iframe>
+                <div class="md:col-span-2 gradient-border rounded-2xl p-2" data-aos="fade-up" data-aos-delay="300">
+                    <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
+                        <iframe src="https://www.youtube.com/embed/6S9c5nnDd_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 md:h-96 rounded-xl"></iframe>
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mt-4 mb-2">माया को बन्धन - आधिकारिक भिडियो</h3>
+                    <p class="text-gray-300">प्रेम र सम्बन्धको गहिराइलाई दोहोरी शैलीमा उतारिएको गीतको आधिकारिक भिडियो।</p>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    थप भिडियोहरू हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Events Section -->
-    <section id="events" class="py-16 bg-dark">
+    <section id="events" class="py-20 gradient-bg-2 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">आगामी कार्यक्रमहरू</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">आगामी कार्यक्रमहरू</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Event 1 -->
-                <div class="bg-darklight p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-xl font-bold text-gold mb-2">दोहोरी संगीत समारोह</h3>
-                    <p class="text-gray-400 mb-2"><i class="fas fa-calendar-alt mr-2 text-gold"></i> २०२३ असोज १५</p>
-                    <p class="text-gray-400 mb-4"><i class="fas fa-map-marker-alt mr-2 text-gold"></i> भृकुटी मण्डप, काठमाडौं</p>
-                    <p class="text-gray-300">पारम्परिक दोहोरी संगीतको संरक्षण र प्रवर्द्धनको लागि आयोजना गरिएको विशेष संगीत कार्यक्रम।</p>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-goldlight">दोहोरी संगीत समारोह</h3>
+                        <div class="gradient-bg-3 text-white text-sm font-bold px-3 py-1 rounded-full">नयाँ</div>
+                    </div>
+                    <p class="text-gray-400 mb-2"><i class="fas fa-calendar-alt mr-2 text-goldlight"></i> २०२३ असोज १५</p>
+                    <p class="text-gray-400 mb-4"><i class="fas fa-map-marker-alt mr-2 text-goldlight"></i> भृकुटी मण्डप, काठमाडौं</p>
+                    <p class="text-gray-300 mb-6">पारम्परिक दोहोरी संगीतको संरक्षण र प्रवर्द्धनको लागि आयोजना गरिएको विशेष संगीत कार्यक्रम।</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-goldlight font-bold">रु. ५००</span>
+                        <button class="gradient-bg text-white px-4 py-2 rounded-full text-sm hover:shadow-lg">टिकट किन्नुहोस्</button>
+                    </div>
                 </div>
                 
                 <!-- Event 2 -->
-                <div class="bg-darklight p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-xl font-bold text-gold mb-2">सांस्कृतिक महोत्सव</h3>
-                    <p class="text-gray-400 mb-2"><i class="fas fa-calendar-alt mr-2 text-gold"></i> २०२३ कार्तिक ५</p>
-                    <p class="text-gray-400 mb-4"><i class="fas fa-map-marker-alt mr-2 text-gold"></i> पुतलीसडक, काठमाडौं</p>
-                    <p class="text-gray-300">नेपाली सांस्कृतिक विविधतालाई प्रदर्शन गर्ने उद्देश्यले आयोजना गरिएको वार्षिक सांस्कृतिक कार्यक्रम।</p>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-goldlight">सांस्कृतिक महोत्सव</h3>
+                        <div class="gradient-bg-3 text-white text-sm font-bold px-3 py-1 rounded-full">नयाँ</div>
+                    </div>
+                    <p class="text-gray-400 mb-2"><i class="fas fa-calendar-alt mr-2 text-goldlight"></i> २०२३ कार्तिक ५</p>
+                    <p class="text-gray-400 mb-4"><i class="fas fa-map-marker-alt mr-2 text-goldlight"></i> पुतलीसडक, काठमाडौं</p>
+                    <p class="text-gray-300 mb-6">नेपाली सांस्कृतिक विविधतालाई प्रदर्शन गर्ने उद्देश्यले आयोजना गरिएको वार्षिक सांस्कृतिक कार्यक्रम।</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-goldlight font-bold">रु. ७००</span>
+                        <button class="gradient-bg text-white px-4 py-2 rounded-full text-sm hover:shadow-lg">टिकट किन्नुहोस्</button>
+                    </div>
                 </div>
                 
                 <!-- Event 3 -->
-                <div class="bg-darklight p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="text-xl font-bold text-gold mb-2">चाडपर्व संगीत कार्यक्रम</h3>
-                    <p class="text-gray-400 mb-2"><i class="fas fa-calendar-alt mr-2 text-gold"></i> २०२३ मंसिर २०</p>
-                    <p class="text-gray-400 mb-4"><i class="fas fa-map-marker-alt mr-2 text-gold"></i> ढुंगाधरा, इलाम</p>
-                    <p class="text-gray-300">तिहारको अवसरमा आयोजना गरिएको विशेष संगीत कार्यक्रम जहाँ दोहोरी गीतहरूको मनोरंजनात्मक प्रस्तुति हुनेछ।</p>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-goldlight">चाडपर्व संगीत कार्यक्रम</h3>
+                        <div class="gradient-bg-3 text-white text-sm font-bold px-3 py-1 rounded-full">नयाँ</div>
+                    </div>
+                    <p class="text-gray-400 mb-2"><i class="fas fa-calendar-alt mr-2 text-goldlight"></i> २०२३ मंसिर २०</p>
+                    <p class="text-gray-400 mb-4"><i class="fas fa-map-marker-alt mr-2 text-goldlight"></i> ढुंगाधरा, इलाम</p>
+                    <p class="text-gray-300 mb-6">तिहारको अवसरमा आयोजना गरिएको विशेष संगीत कार्यक्रम जहाँ दोहोरी गीतहरूको मनोरंजनात्मक प्रस्तुति हुनेछ।</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-goldlight font-bold">रु. ३००</span>
+                        <button class="gradient-bg text-white px-4 py-2 rounded-full text-sm hover:shadow-lg">टिकट किन्नुहोस्</button>
+                    </div>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    सबै कार्यक्रमहरू हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Awards Section -->
-    <section id="awards" class="py-16 bg-darklight">
+    <section id="awards" class="py-20 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">पुरस्कार र सम्मानहरू</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">पुरस्कार र सम्मानहरू</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Award 1 -->
-                <div class="bg-dark p-6 rounded-lg shadow-lg text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow-2xl text-center" data-aos="fade-up" data-aos-delay="100">
                     <div class="text-5xl text-gold mb-4"><i class="fas fa-trophy"></i></div>
-                    <h3 class="text-xl font-bold text-gold mb-2">उत्कृष्ट दोहोरी गायक</h3>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">उत्कृष्ट दोहोरी गायक</h3>
                     <p class="text-gray-400 mb-2">नेपाल संगीत प्रतिष्ठान</p>
                     <p class="text-gray-400 mb-4">२०२२</p>
                     <p class="text-gray-300">दोहोरी संगीतको क्षेत्रमा उल्लेखनीय योगदानको लागि प्रदान गरिएको सम्मान।</p>
+                    <div class="mt-6">
+                        <img src="https://images.unsplash.com/photo-1614689540268-6b5d12819c85?ixlib=rb-4.0.3" alt="Award" class="w-24 h-24 object-cover rounded-full mx-auto">
+                    </div>
                 </div>
                 
                 <!-- Award 2 -->
-                <div class="bg-dark p-6 rounded-lg shadow-lg text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow-2xl text-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="text-5xl text-gold mb-4"><i class="fas fa-award"></i></div>
-                    <h3 class="text-xl font-bold text-gold mb-2">युवा सांस्कृतिक प्रतिभा</h3>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">युवा सांस्कृतिक प्रतिभा</h3>
                     <p class="text-gray-400 mb-2">कला संस्कृति मन्त्रालय</p>
                     <p class="text-gray-400 mb-4">२०२१</p>
                     <p class="text-gray-300">नेपाली सांस्कृतिक संगीतलाई संरक्षण गर्ने र प्रवर्द्धनमा योगदान पुर्याएकोमा दिइएको सम्मान।</p>
+                    <div class="mt-6">
+                        <img src="https://images.unsplash.com/photo-1603796846097-b3b00d7a3951?ixlib=rb-4.0.3" alt="Award" class="w-24 h-24 object-cover rounded-full mx-auto">
+                    </div>
                 </div>
                 
                 <!-- Award 3 -->
-                <div class="bg-dark p-6 rounded-lg shadow-lg text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow-2xl text-center" data-aos="fade-up" data-aos-delay="300">
                     <div class="text-5xl text-gold mb-4"><i class="fas fa-medal"></i></div>
-                    <h3 class="text-xl font-bold text-gold mb-2">लोक संगीत शिरोमणि</h3>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">लोक संगीत शिरोमणि</h3>
                     <p class="text-gray-400 mb-2">नेपाल लोक संगीत संघ</p>
                     <p class="text-gray-400 mb-4">२०२०</p>
                     <p class="text-gray-300">लोक संगीतको क्षेत्रमा उत्कृष्ट प्रदर्शन र योगदानको लागि प्रदान गरिएको पुरस्कार।</p>
+                    <div class="mt-6">
+                        <img src="https://images.unsplash.com/photo-1603796846097-b3b00d7a3951?ixlib=rb-4.0.3" alt="Award" class="w-24 h-24 object-cover rounded-full mx-auto">
+                    </div>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    थप पुरस्कारहरू हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- News/Blog Section -->
-    <section id="news" class="py-16 bg-dark">
+    <section id="news" class="py-20 gradient-bg relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">समाचार / ब्लग</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">समाचार / ब्लग</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- News 1 -->
-                <div class="bg-darklight p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-xl font-bold text-gold mb-2">नयाँ दोहोरी एल्बम 'सांस्कृतिक धरोहर' सार्वजनिक</h3>
-                    <p class="text-gray-400 mb-4"><i class="fas fa-calendar-alt mr-2 text-gold"></i> २०२३ जेठ १०</p>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?ixlib=rb-4.0.3" alt="News" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">नयाँ दोहोरी एल्बम 'सांस्कृतिक धरोहर' सार्वजनिक</h3>
+                    <p class="text-gray-400 mb-4"><i class="fas fa-calendar-alt mr-2 text-goldlight"></i> २०२३ जेठ १०</p>
                     <p class="text-gray-300 mb-4">
                         चर्चित दोहोरी गायक सन्तोष पन्थीको नयाँ एल्बम 'सांस्कृतिक धरोहर' सार्वजनिक भएको छ। यस एल्बममा १२ वटा दोहोरी गीतहरू समावेश गरिएका छन् जसले नेपाली सांस्कृतिक परम्परालाई अँगाल्ने कोशिश गरेको छ।
                     </p>
-                    <a href="#" class="text-gold hover:underline">पढ्न जारी राख्नुहोस्...</a>
+                    <a href="#" class="text-goldlight hover:underline flex items-center">पढ्न जारी राख्नुहोस् <i class="ml-2 fas fa-arrow-right"></i></a>
                 </div>
                 
                 <!-- News 2 -->
-                <div class="bg-darklight p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-xl font-bold text-gold mb-2">दोहोरी संगीतलाई अन्तर्राष्ट्रिय मंचमा चिनाउने प्रयास</h3>
-                    <p class="text-gray-400 mb-4"><i class="fas fa-calendar-alt mr-2 text-gold"></i> २०२३ चैत्र २५</p>
+                <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3" alt="News" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">दोहोरी संगीतलाई अन्तर्राष्ट्रिय मंचमा चिनाउने प्रयास</h3>
+                    <p class="text-gray-400 mb-4"><i class="fas fa-calendar-alt mr-2 text-goldlight"></i> २०२३ चैत्र २५</p>
                     <p class="text-gray-300 mb-4">
                         उदाउँदो दोहोरी गायक सन्तोष पन्थीले नेपाली दोहोरी संगीतलाई अन्तर्राष्ट्रिय मंचमा चिनाउने बताएका छन्। उनले आगामी महिनामा भारत र युरोपका केही देशहरूमा आफ्नो संगीत कार्यक्रम प्रस्तुत गर्ने तयारी गरेको बताएका छन्।
                     </p>
-                    <a href="#" class="text-gold hover:underline">पढ्न जारी राख्नुहोस्...</a>
+                    <a href="#" class="text-goldlight hover:underline flex items-center">पढ्न जारी राख्नुहोस् <i class="ml-2 fas fa-arrow-right"></i></a>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    सबै समाचारहरू हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Fan Feedback Section -->
-    <section id="feedback" class="py-16 bg-darklight">
+    <section id="feedback" class="py-20 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">फ्यानहरूको प्रतिक्रिया</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">फ्यानहरूको प्रतिक्रिया</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-dark p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl text-gold mr-4"><i class="fas fa-user-circle"></i></div>
-                        <div>
-                            <h3 class="text-lg font-bold text-white">रमेश अधिकारी</h3>
-                            <p class="text-gray-400">काठमाडौं</p>
+                <div class="testimonial-card h-80" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-inner h-full">
+                        <div class="testimonial-front bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl flex flex-col justify-center">
+                            <div class="flex items-center mb-4">
+                                <div class="text-3xl text-goldlight mr-4"><i class="fas fa-user-circle"></i></div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">रमेश अधिकारी</h3>
+                                    <p class="text-gray-400">काठमाडौं</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">
+                                "सन्तोष पन्थीजीको आवाजमा एकदमै माधुर्य छ। उनको गीतहरू सुनेपछि मन शान्त हुन्छ र नेपाली संस्कृतिको अनुभूति हुन्छ। धेरै राम्रो गाउनुहुन्छ।"
+                            </p>
+                            <div class="mt-4 text-goldlight">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="testimonial-back gradient-bg p-6 rounded-2xl flex flex-col justify-center items-center">
+                            <div class="text-5xl text-white mb-4"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-white text-center">"सन्तोष पन्थी नेपाली संगीतको भविष्य हुन्। उनको संगीतले हाम्रो संस्कृतिलाई जिउँदो राख्ने काम गरिरहेको छ।"</p>
+                            <div class="mt-4 text-white">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-300">
-                        "सन्तोष पन्थीजीको आवाजमा एकदमै माधुर्य छ। उनको गीतहरू सुनेपछि मन शान्त हुन्छ र नेपाली संस्कृतिको अनुभूति हुन्छ। धेरै राम्रो गाउनुहुन्छ।"
-                    </p>
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-dark p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl text-gold mr-4"><i class="fas fa-user-circle"></i></div>
-                        <div>
-                            <h3 class="text-lg font-bold text-white">सुनिता गुरुङ</h3>
-                            <p class="text-gray-400">पोखरा</p>
+                <div class="testimonial-card h-80" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-inner h-full">
+                        <div class="testimonial-front bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl flex flex-col justify-center">
+                            <div class="flex items-center mb-4">
+                                <div class="text-3xl text-goldlight mr-4"><i class="fas fa-user-circle"></i></div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">सुनिता गुरुङ</h3>
+                                    <p class="text-gray-400">पोखरा</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">
+                                "म पन्थीजीको धेरै ठूलो प्रशंसक हुँ। उनको हरेक गीतमा नेपाली संस्कृतिको झल्क हुन्छ। उनले दोहोरी संगीतलाई नयाँ पुस्तासम्म पुर्याउनुभएकोमा धन्यवाद।"
+                            </p>
+                            <div class="mt-4 text-goldlight">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <div class="testimonial-back gradient-bg-2 p-6 rounded-2xl flex flex-col justify-center items-center">
+                            <div class="text-5xl text-white mb-4"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-white text-center">"सन्तोषको संगीत सुनेपछि मेरो बिहान सधैं राम्रोसँग सुरु हुन्छ। उनको आवाजमा एक अर्कै जादु छ।"</p>
+                            <div class="mt-4 text-white">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-300">
-                        "म पन्थीजीको धेरै ठूलो प्रशंसक हुँ। उनको हरेक गीतमा नेपाली संस्कृतिको झल्क हुन्छ। उनले दोहोरी संगीतलाई नयाँ पुस्तासम्म पुर्याउनुभएकोमा धन्यवाद।"
-                    </p>
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-dark p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex items-center mb-4">
-                        <div class="text-3xl text-gold mr-4"><i class="fas fa-user-circle"></i></div>
-                        <div>
-                            <h3 class="text-lg font-bold text-white">विजय कुमार</h3>
-                            <p class="text-gray-400">धरान</p>
+                <div class="testimonial-card h-80" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-inner h-full">
+                        <div class="testimonial-front bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl flex flex-col justify-center">
+                            <div class="flex items-center mb-4">
+                                <div class="text-3xl text-goldlight mr-4"><i class="fas fa-user-circle"></i></div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">विजय कुमार</h3>
+                                    <p class="text-gray-400">धरान</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">
+                                "सन्तोष पन्थी नेपाली संगीत जगतका लागि वरदान हुन्। उनको संगीतले हामी जस्ता युवाहरूलाई पनि परम्परागत संगीतप्रतिक आकर्षित गराएको छ। उनको भविष्य उज्ज्वल होस्।"
+                            </p>
+                            <div class="mt-4 text-goldlight">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="testimonial-back gradient-bg-3 p-6 rounded-2xl flex flex-col justify-center items-center">
+                            <div class="text-5xl text-white mb-4"><i class="fas fa-quote-left"></i></div>
+                            <p class="text-white text-center">"सन्तोष पन्थीले गरेको दोहोरी संगीतको पुनरुत्थानले गर्दा नेपाली संगीतलाई नयाँ जीवन दिएको छ।"</p>
+                            <div class="mt-4 text-white">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-300">
-                        "सन्तोष पन्थी नेपाली संगीत जगतका लागि वरदान हुन्। उनको संगीतले हामी जस्ता युवाहरूलाई पनि परम्परागत संगीतप्रतिक आकर्षित गराएको छ। उनको भविष्य उज्ज्वल होस्।"
-                    </p>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    थप प्रतिक्रियाहरू हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Merchandise Section -->
-    <section id="merch" class="py-16 bg-dark">
+    <section id="merch" class="py-20 gradient-bg-2 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">मर्चेन्डाइज</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">मर्चेन्डाइज</h2>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Product 1 -->
-                <div class="product-card bg-darklight p-6 rounded-lg shadow-lg text-center" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3" alt="T-shirt" class="rounded-lg mb-4 h-48 w-full object-cover">
-                    <h3 class="text-xl font-bold text-gold mb-2">टि-सर्ट</h3>
-                    <p class="text-gray-400 mb-2">रु. १,२००</p>
-                    <button class="bg-gold text-dark font-bold px-4 py-2 rounded hover:bg-yellow-500 transition">थप्नुहोस्</button>
+                <div class="product-card bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3" alt="T-shirt" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">टि-सर्ट</h3>
+                    <p class="text-gray-400 mb-2">विभिन्न साइजमा उपलब्ध</p>
+                    <p class="text-gray-400 mb-4">रु. १,२००</p>
+                    <button class="gradient-bg text-white font-bold px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300">थप्नुहोस्</button>
                 </div>
                 
                 <!-- Product 2 -->
-                <div class="product-card bg-darklight p-6 rounded-lg shadow-lg text-center" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-4.0.3" alt="Cap" class="rounded-lg mb-4 h-48 w-full object-cover">
-                    <h3 class="text-xl font-bold text-gold mb-2">टोपी</h3>
-                    <p class="text-gray-400 mb-2">रु. ८००</p>
-                    <button class="bg-gold text-dark font-bold px-4 py-2 rounded hover:bg-yellow-500 transition">थप्नुहोस्</button>
+                <div class="product-card bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-4.0.3" alt="Cap" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">टोपी</h3>
+                    <p class="text-gray-400 mb-2">एक मात्रै साइज</p>
+                    <p class="text-gray-400 mb-4">रु. ८००</p>
+                    <button class="gradient-bg text-white font-bold px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300">थप्नुहोस्</button>
                 </div>
                 
                 <!-- Product 3 -->
-                <div class="product-card bg-darklight p-6 rounded-lg shadow-lg text-center" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3" alt="Poster" class="rounded-lg mb-4 h-48 w-full object-cover">
-                    <h3 class="text-xl font-bold text-gold mb-2">पोस्टर</h3>
-                    <p class="text-gray-400 mb-2">रु. ३००</p>
-                    <button class="bg-gold text-dark font-bold px-4 py-2 rounded hover:bg-yellow-500 transition">थप्नुहोस्</button>
+                <div class="product-card bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3" alt="Poster" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">पोस्टर</h3>
+                    <p class="text-gray-400 mb-2">१८x२४ इन्च</p>
+                    <p class="text-gray-400 mb-4">रु. ३००</p>
+                    <button class="gradient-bg text-white font-bold px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300">थप्नुहोस्</button>
                 </div>
                 
                 <!-- Product 4 -->
-                <div class="product-card bg-darklight p-6 rounded-lg shadow-lg text-center" data-aos="fade-up" data-aos-delay="400">
-                    <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-4.0.3" alt="CD" class="rounded-lg mb-4 h-48 w-full object-cover">
-                    <h3 class="text-xl font-bold text-gold mb-2">सिडी एल्बम</h3>
-                    <p class="text-gray-400 mb-2">रु. ५००</p>
-                    <button class="bg-gold text-dark font-bold px-4 py-2 rounded hover:bg-yellow-500 transition">थप्नुहोस्</button>
+                <div class="product-card bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-2xl text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="gradient-border rounded-2xl p-2 mb-4">
+                        <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-4.0.3" alt="CD" class="rounded-2xl w-full h-48 object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-goldlight mb-2">सिडी एल्बम</h3>
+                    <p class="text-gray-400 mb-2">सबै एल्बम उपलब्ध</p>
+                    <p class="text-gray-400 mb-4">रु. ५००</p>
+                    <button class="gradient-bg text-white font-bold px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300">थप्नुहोस्</button>
                 </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-block gradient-bg-3 text-white font-bold px-6 py-3 rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    सबै मर्चेन्डाइज हेर्नुहोस् <i class="ml-2 fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: linear-gradient(135deg, #0F0C29 0%, #302B63 50%, #24243E 100%);
+            color: white;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4361EE 0%, #3A0CA3 50%, #7209B7 100%);
+        }
+        .gradient-bg-3 {
+            background: linear-gradient(135deg, #F72585 0%, #7209B7 50%, #3A0CA3 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 50%, #FFFFFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            bottom: -10px;
+            left: 20%;
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-darklight">
+    <section id="contact" class="py-20 relative overflow-hidden w-full">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gold mb-12" data-aos="fade-up">सम्पर्क गर्नुहोस्</h2>
+            <h2 class="text-4xl font-bold text-center section-title mb-16" data-aos="fade-up">सम्पर्क गर्नुहोस्</h2>
             <div class="flex flex-col md:flex-row gap-8">
                 <div class="md:w-1/2" data-aos="fade-right">
-                    <form class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-gray-300 mb-2">नाम</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 bg-dark border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gold">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-gray-300 mb-2">इमेल</label>
-                            <input type="email" id="email" class="w-full px-4 py-2 bg-dark border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gold">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-gray-300 mb-2">सन्देश</label>
-                            <textarea id="message" rows="5" class="w-full px-4 py-2 bg-dark border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
-                        </div>
-                        <button type="submit" class="bg-gold text-dark font-bold px-6 py-3 rounded hover:bg-yellow-500 transition">पठाउनुहोस्</button>
-                    </form>
+                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-2xl">
+                        <form class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-gray-300 mb-2">नाम</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-goldlight">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-300 mb-2">इमेल</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-goldlight">
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-gray-300 mb-2">विषय</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-goldlight">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-gray-300 mb-2">सन्देश</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-goldlight"></textarea>
+                            </div>
+                            <button type="submit" class="w-full gradient-bg text-white font-bold py-3 rounded-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                                सन्देश पठाउनुहोस्
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="md:w-1/2" data-aos="fade-left">
-                    <div class="bg-dark p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold text-gold mb-4">सम्पर्क जानकारी</h3>
-                        <div class="space-y-4">
+                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-2xl h-full">
+                        <h3 class="text-2xl font-bold gradient-text mb-6">सम्पर्क जानकारी</h3>
+                        <div class="space-y-6">
                             <div class="flex items-start">
-                                <div class="text-gold text-xl mr-4"><i class="fas fa-phone"></i></div>
+                                <div class="text-goldlight text-2xl mr-4 mt-1"><i class="fas fa-phone-alt"></i></div>
                                 <div>
                                     <p class="text-gray-300">फोन</p>
-                                    <p class="text-white">+९७७-९८XXXXXXXX</p>
+                                    <p class="text-white text-lg">+९७७-९८XXXXXXXX</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
-                                <div class="text-gold text-xl mr-4"><i class="fas fa-envelope"></i></div>
+                                <div class="text-goldlight text-2xl mr-4 mt-1"><i class="fas fa-envelope"></i></div>
                                 <div>
                                     <p class="text-gray-300">इमेल</p>
-                                    <p class="text-white">santoshpanthee@example.com</p>
+                                    <p class="text-white text-lg">santoshpanthee@example.com</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
-                                <div class="text-gold text-xl mr-4"><i class="fas fa-map-marker-alt"></i></div>
+                                <div class="text-goldlight text-2xl mr-4 mt-1"><i class="fas fa-map-marker-alt"></i></div>
                                 <div>
                                     <p class="text-gray-300">ठेगाना</p>
-                                    <p class="text-white">काठमाडौं, नेपाल</p>
+                                    <p class="text-white text-lg">काठमाडौं, नेपाल</p>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-8">
-                            <h3 class="text-xl font-bold text-gold mb-4">सामाजिक संजाल</h3>
+                            <h3 class="text-xl font-bold gradient-text mb-4">सामाजिक संजाल</h3>
                             <div class="flex space-x-4">
-                                <a href="#" class="text-gray-300 hover:text-gold text-2xl"><i class="fab fa-facebook"></i></a>
-                                <a href="#" class="text-gray-300 hover:text-gold text-2xl"><i class="fab fa-youtube"></i></a>
-                                <a href="#" class="text-gray-300 hover:text-gold text-2xl"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="text-gray-300 hover:text-gold text-2xl"><i class="fab fa-tiktok"></i></a>
+                                <a href="#" class="text-2xl text-gray-300 hover:text-goldlight transition"><i class="fab fa-facebook"></i></a>
+                                <a href="#" class="text-2xl text-gray-300 hover:text-goldlight transition"><i class="fab fa-youtube"></i></a>
+                                <a href="#" class="text-2xl text-gray-300 hover:text-goldlight transition"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="text-2xl text-gray-300 hover:text-goldlight transition"><i class="fab fa-tiktok"></i></a>
                             </div>
+                        </div>
+                        <div class="mt-8 gradient-bg-3 p-4 rounded-lg">
+                            <h4 class="text-lg font-bold mb-2">कार्य समय</h4>
+                            <p class="text-white">सोमबार - शुक्रबार: १०:०० AM - ५:०० PM</p>
+                            <p class="text-white">शनिबार: ११:०० AM - ३:०० PM</p>
+                            <p class="text-white">आइतबार: बिदा</p>
                         </div>
                     </div>
                 </div>
@@ -505,70 +957,16 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold text-gold mb-4">सन्तोष पन्थी</h3>
-                    <p class="text-gray-300">नेपालका उदाउँदो दोहोरी गायक</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gold mb-4">द्रुत लिंकहरू</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="text-gray-300 hover:text-gold">गृहपृष्ठ</a></li>
-                        <li><a href="#music" class="text-gray-300 hover:text-gold">संगीत</a></li>
-                        <li><a href="#videos" class="text-gray-300 hover:text-gold">भिडियो</a></li>
-                        <li><a href="#events" class="text-gray-300 hover:text-gold">कार्यक्रमहरू</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gold mb-4">अन्य लिंकहरू</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#about" class="text-gray-300 hover:text-gold">परिचय</a></li>
-                        <li><a href="#gallery" class="text-gray-300 hover:text-gold">ग्यालरी</a></li>
-                        <li><a href="#merch" class="text-gray-300 hover:text-gold">मर्च</a></li>
-                        <li><a href="#contact" class="text-gray-300 hover:text-gold">सम्पर्क</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gold mb-4">सामाजिक संजाल</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-gold text-2xl"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-gold text-2xl"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-gold text-2xl"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-gold text-2xl"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>© २०२३ सन्तोष पन्थी. सर्वाधिकार सुरक्षित.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
         AOS.init({
             duration: 1000,
             once: true,
             offset: 100,
         });
-
-        // Mobile menu toggle
-        document.getElementById('menu-btn').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
-        });
     </script>
 </body>
 </html>
+                            <div>
+                                <label for="subject" class="block text-gray-300 mb-2">विषय</label>
+                                <input type="text" id="subject
