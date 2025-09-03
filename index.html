@@ -1,291 +1,845 @@
 <!DOCTYPE html>
 <html lang="ne">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>सन्तोष पन्थी — नेपाली दोहोरी गायक</title>
-
-  <!-- TailwindCSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- AOS CSS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/a2d9d6f3f0.js" crossorigin="anonymous"></script>
-
-  <!-- Custom Styles -->
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #fdfbfb, #ebedee);
-      color: #1f2937;
-      scroll-behavior: smooth;
-    }
-
-    .gradient-text {
-      background: linear-gradient(90deg, #ff7a18, #af002d, #319197);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .gradient-btn {
-      background: linear-gradient(90deg, #ff7a18, #af002d, #319197);
-      color: white;
-    }
-
-    .floating {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%,100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.05); opacity: 0.8; }
-    }
-
-    .hero-circle { width: 220px; height: 220px; border-radius: 9999px; overflow: hidden; border: 5px solid rgba(0,0,0,0.1); }
-    .about-square { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; }
-
-    .gallery-img { transition: all 0.6s cubic-bezier(.2,.8,.2,1); }
-    .gallery-img:hover { transform: scale(1.1) rotate(-2deg); }
-
-    .music-bar { animation: bounce 1.2s infinite ease-in-out; transform-origin: bottom; }
-    @keyframes bounce {
-      0%{ transform: scaleY(0.6); }
-      50%{ transform: scaleY(1.1); }
-      100%{ transform: scaleY(0.6); }
-    }
-
-    nav { backdrop-filter: blur(10px); }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सन्तोष पन्थी - नेपाली दोहोरी गायक</title>
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff3e78;
+            --secondary: #2bde8c;
+            --accent: #ff9d3b;
+            --light: #f8f9ff;
+            --dark: #1f2937;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background-color: var(--light);
+            color: #333;
+        }
+        
+        .nepali-text {
+            font-family: 'Poppins', 'Mangal', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 300% 300%;
+            animation: gradient 5s ease infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            background-size: 300% 300%;
+            animation: gradient 5s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .bounce-slow {
+            animation: bounce 4s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .music-bar {
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(to top, var(--primary), var(--secondary));
+            border-radius: 10px;
+            margin: 0 2px;
+            animation: musicbar 1.5s ease infinite alternate;
+        }
+        
+        .music-bar:nth-child(2) { animation-delay: 0.3s; }
+        .music-bar:nth-child(3) { animation-delay: 0.6s; }
+        .music-bar:nth-child(4) { animation-delay: 0.9s; }
+        .music-bar:nth-child(5) { animation-delay: 1.2s; }
+        
+        @keyframes musicbar {
+            0% { height: 5px; }
+            100% { height: 25px; }
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .circle1 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary);
+            top: 10%;
+            left: 5%;
+            animation: move 15s infinite alternate;
+        }
+        
+        .circle2 {
+            width: 150px;
+            height: 150px;
+            background: var(--secondary);
+            bottom: 20%;
+            right: 10%;
+            animation: move 12s infinite alternate-reverse;
+        }
+        
+        .circle3 {
+            width: 100px;
+            height: 100px;
+            background: var(--accent);
+            top: 50%;
+            left: 20%;
+            animation: move 10s infinite alternate;
+        }
+        
+        @keyframes move {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(50px, 50px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .video-card {
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 62, 120, 0.2);
+        }
+        
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .progress-bar {
+            height: 5px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
 </head>
 <body class="antialiased">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass py-3 px-6 md:px-12">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-xl font-bold gradient-text">सन्तोष पन्थी</a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
+                <a href="#home" class="hover:text-purple-600 transition-colors">गृहपृष्ठ</a>
+                <a href="#about" class="hover:text-purple-600 transition-colors">परिचय/जीवन यात्रा</a>
+                <a href="#music" class="hover:text-purple-600 transition-colors">संगीत</a>
+                <a href="#gallery" class="hover:text-purple-600 transition-colors">ग्यालरी</a>
+                <a href="#videos" class="hover:text-purple-600 transition-colors">भिडियो</a>
+                <a href="#contact" class="hover:text-purple-600 transition-colors">संपर्क</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass mt-4 py-4 rounded-lg">
+            <div class="flex flex-col space-y-3 px-6">
+                <a href="#home" class="hover:text-purple-600 transition-colors">गृहपृष्ठ</a>
+                <a href="#about" class="hover:text-purple-600 transition-colors">परिचय/जीवन यात्रा</a>
+                <a href="#music" class="hover:text-purple-600 transition-colors">संगीत</a>
+                <a href="#gallery" class="hover:text-purple-600 transition-colors">ग्यालरी</a>
+                <a href="#videos" class="hover:text-purple-600 transition-colors">भिडियो</a>
+                <a href="#contact" class="hover:text-purple-600 transition-colors">संपर्क</a>
+            </div>
+        </div>
+    </nav>
 
-<!-- NAVBAR -->
-<nav class="fixed top-0 w-full z-50 bg-white/70 shadow-md">
-  <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-    <a href="#home" class="font-bold text-2xl gradient-text">सन्तोष पन्थी</a>
-    <div class="hidden md:flex space-x-6">
-      <a href="#home" class="hover:text-purple-600">गृहपृष्ठ</a>
-      <a href="#about" class="hover:text-purple-600">परिचय</a>
-      <a href="#music" class="hover:text-purple-600">संगीत</a>
-      <a href="#gallery" class="hover:text-purple-600">ग्यालरी</a>
-      <a href="#videos" class="hover:text-purple-600">भिडियो</a>
-      <a href="#contact" class="hover:text-purple-600">सम्पर्क</a>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <!-- Animated Shapes -->
+        <div class="shape circle1"></div>
+        <div class="shape circle2"></div>
+        <div class="shape circle3"></div>
+        
+        <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 flex justify-center" data-aos="fade-right">
+                <div class="relative">
+                    <img src="https://raw.githubusercontent.com/santoshpanthi0007-png/Website-/main/p.jpg" 
+                         alt="Santosh Panthee" 
+                         class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-8 border-white shadow-xl floating">
+                    <div class="absolute -bottom-2 -right-2 gradient-bg w-24 h-24 rounded-full flex items-center justify-center">
+                        <div class="flex">
+                            <div class="music-bar"></div>
+                            <div class="music-bar"></div>
+                            <div class="music-bar"></div>
+                            <div class="music-bar"></div>
+                            <div class="music-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 mt-10 md:mt-0 md:pl-12 text-center md:text-left" data-aos="fade-left">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 gradient-text">सन्तोष पन्थी</h1>
+                <h2 class="text-xl md:text-2xl text-gray-600 mb-6">नेपालका उदाउँदो दोहोरी गायक</h2>
+                <p class="text-gray-700 mb-8 max-w-md mx-auto md:mx-0">
+                    नेपाली संगीतको समृद्ध परम्परामा दोहोरी गायकको रूपमा आफ्नो छाप छोड्न उद्यत युवा प्रतिभा। लोक संगीतप्रति गहिरो प्रेम र आधुनिकताको नाम सन्तोष पन्थी।
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                    <a href="#music" class="px-6 py-3 gradient-bg text-white rounded-full font-medium btn-hover">
+                        <i class="fas fa-music mr-2"></i> मेरो संगीत
+                    </a>
+                    <a href="#videos" class="px-6 py-3 border-2 border-purple-500 text-purple-600 rounded-full font-medium btn-hover">
+                        <i class="fas fa-play-circle mr-2"></i> भिडियो हेर्नुहोस्
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">मेरो बारेमा</h2>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                    <img src="https://raw.githubusercontent.com/santoshpanthi0007-png/Website-/main/about.jpg" 
+                         alt="About Santosh Panthee" 
+                         class="rounded-2xl shadow-2xl w-full max-w-md mx-auto">
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12" data-aos="fade-left">
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <span class="px-4 py-2 gradient-bg text-white rounded-full text-sm font-medium">दोहोरी गायक</span>
+                        <span class="px-4 py-2 gradient-bg text-white rounded-full text-sm font-medium">लोक धुन</span>
+                        <span class="px-4 py-2 gradient-bg text-white rounded-full text-sm font-medium">भविष्यका स्टार</span>
+                    </div>
+                    
+                    <p class="text-gray-700 mb-4">
+                        सन्तोष पन्थी नेपालको गुल्मी जिल्ला मदाने गाउँपालिका वार्ड नं ०७ भनभनेमा जन्मिएका एक प्रतिभाशाली दोहोरी गायक हुन्। बाल्यकालदेखि नै संगीतप्रतिको उनको गहिरो रुझान थियो।
+                    </p>
+                    
+                    <p class="text-gray-700 mb-4">
+                        सानै उमेरमा स्थानीय सांस्कृतिक कार्यक्रमहरूमा सहभागिता जनाउँदै आएका सन्तोषले आफ्नो कला विकास गर्न काठमाडौंमा आइपुगेका हुन्। उनको मधुर स्वर र दोहोरी प्रतिभाले गितकार तथा संगीतकारहरूको ध्यान आकर्षित गर्यो।
+                    </p>
+                    
+                    <p class="text-gray-700 mb-6">
+                        हाल उनी नेपाली लोक संगीत, विशेष गरी दोहोरी गीतहरूमा आफ्नो करियर निर्माण गर्दैछन्। उनको लक्ष्य नेपाली लोक संगीतलाई अन्तर्राष्ट्रिय मंचसम्म पुर्याउनु र युवा पुस्तालाई नेपाली सांस्कृतिक संगीतप्रतिको आकर्षित बनाउनु हो।
+                    </p>
+                    
+                    <div class="flex items-center mt-8">
+                        <div class="flex mr-4">
+                            <div class="music-bar"></div>
+                            <div class="music-bar"></div>
+                            <div class="music-bar"></div>
+                            <div class="music-bar"></div>
+                            <div class="music-bar"></div>
+                        </div>
+                        <span class="text-gray-600">अहिले पनि संगीत सृजनामा...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music" class="py-20 bg-gray-50 relative overflow-hidden">
+        <!-- Animated Icons -->
+        <i class="fas fa-music text-purple-200 text-4xl absolute top-1/4 left-10 floating" style="font-size: 2rem;"></i>
+        <i class="fas fa-microphone text-blue-200 text-4xl absolute top-1/3 right-20 floating" style="font-size: 2.5rem; animation-delay: 2s;"></i>
+        <i class="fas fa-headphones text-green-200 text-4xl absolute bottom-1/4 left-20 floating" style="font-size: 3rem; animation-delay: 1s;"></i>
+        
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 gradient-text" data-aos="fade-up">मेरो संगीत</h2>
+            <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                नेपाली लोक संगीत र दोहोरीको मधुर संयोजन
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Song 1 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6" data-aos="flip-left">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">रेलीमै</h3>
+                        <span class="text-gray-500">4:20</span>
+                    </div>
+                    
+                    <div class="mb-4 relative">
+                        <audio id="song1" class="w-full">
+                            <source src="https://raw.githubusercontent.com/santoshpanthi0007-png/Website-/main/song1.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        
+                        <div class="progress-bar mt-2">
+                            <div class="progress" id="progress1"></div>
+                        </div>
+                        
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span id="currentTime1">0:00</span>
+                            <span id="duration1">0:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <button class="play-btn px-4 py-2 gradient-bg text-white rounded-full flex items-center" data-audio="song1">
+                            <i class="fas fa-play mr-2"></i> बजाउनुहोस्
+                        </button>
+                        
+                        <div class="flex space-x-3">
+                            <button class="text-gray-500 hover:text-purple-600 download-btn" data-file="song1.mp3">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-purple-600 share-btn" data-title="माया को दोहोरी - सन्तोष पन्थी">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Song 2 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6" data-aos="flip-right">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">जुन भुल्यौ की </h3>
+                        <span class="text-gray-500">3:45</span>
+                    </div>
+                    
+                    <div class="mb-4 relative">
+                        <audio id="song2" class="w-full">
+                            <source src="https://raw.githubusercontent.com/santoshpanthi0007-png/Website-/main/song2.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        
+                        <div class="progress-bar mt-2">
+                            <div class="progress" id="progress2"></div>
+                        </div>
+                        
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span id="currentTime2">0:00</span>
+                            <span id="duration2">0:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <button class="play-btn px-4 py-2 gradient-bg text-white rounded-full flex items-center" data-audio="song2">
+                            <i class="fas fa-play mr-2"></i> बजाउनुहोस्
+                        </button>
+                        
+                        <div class="flex space-x-3">
+                            <button class="text-gray-500 hover:text-purple-600 download-btn" data-file="song2.mp3">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-purple-600 share-btn" data-title="पहाडको सुमधुर - सन्तोष पन्थी">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up">
+                <p class="text-gray-600 mb-6">थप गीतहरू चाँडै आउँदैछन्...</p>
+                <div class="flex justify-center">
+                    <div class="music-bar"></div>
+                    <div class="music-bar"></div>
+                    <div class="music-bar"></div>
+                    <div class="music-bar"></div>
+                    <div class="music-bar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 gradient-text" data-aos="fade-up">ग्यालरी</h2>
+            <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                मेरो संगीत यात्राका केही झलकहरू
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gallery Items -->
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-md" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Performance" class="w-full h-64 object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-md" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Recording" class="w-full h-64 object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-md" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Concert" class="w-full h-64 object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-md" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Audience" class="w-full h-64 object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-md" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Stage" class="w-full h-64 object-cover">
+                </div>
+                
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-md" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Microphone" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 gradient-text" data-aos="fade-up">भिडियोहरू</h2>
+            <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                मेरा प्रदर्शन तथा संगीत भिडियोहरू
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Video 1 -->
+                <div class="video-card bg-white rounded-2xl shadow-lg overflow-hidden" data-aos="fade-right">
+                    <div class="relative">
+                        <video class="w-full h-48 object-cover" poster="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80">
+                            <source src="https://raw.githubusercontent.com/santoshpanthi0007-png/Website-/main/video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="absolute inset-0 w-full h-full flex items-center justify-center play-video" data-video="video1">
+                            <i class="fas fa-play-circle text-white text-5xl opacity-80"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">माया को दोहोरी (आधिकारिक भिडियो)</h3>
+                        
+                        <div class="flex justify-between">
+                            <a href="#" class="px-4 py-2 gradient-bg text-white rounded-full text-sm font-medium flex items-center btn-hover watch-btn" data-video="video1">
+                                <i class="fas fa-play mr-2"></i> हेर्नुहोस्
+                            </a>
+                            
+                            <div class="flex space-x-3">
+                                <button class="text-gray-500 hover:text-purple-600 download-btn" data-file="video.mp4">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-purple-600 share-btn" data-title="माया को दोहोरी (आधिकारिक भिडियो) - सन्तोष पन्थी">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video 2 - Coming Soon -->
+                <div class="video-card bg-white rounded-2xl shadow-lg overflow-hidden" data-aos="fade-left">
+                    <div class="relative">
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-500 text-lg">चाँडै आउँदैछ</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">पहाडको सुमधुर (चाँडै आउँदैछ)</h3>
+                        
+                        <div class="flex justify-between">
+                            <button class="px-4 py-2 bg-gray-300 text-gray-600 rounded-full text-sm font-medium flex items-center" disabled>
+                                <i class="fas fa-clock mr-2"></i> चाँडै आउँदैछ
+                            </button>
+                            
+                            <div class="flex space-x-3">
+                                <button class="text-gray-400" disabled>
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="text-gray-400" disabled>
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 gradient-text" data-aos="fade-up">संपर्क गर्नुहोस्</h2>
+            <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                प्रदर्शन, सहयोग वा सन्देशको लागि सम्पर्क गर्नुहोस्
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-12 max-w-6xl mx-auto">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6">सम्पर्क जानकारी</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="gradient-bg p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">ठेगाना</h4>
+                                <p class="text-gray-600">गुल्मि मदाने, नेपाल</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="gradient-bg p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">फोन</h4>
+                                <p class="text-gray-600">+९७७ ९८XXXXXXXX</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="gradient-bg p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">इमेल</h4>
+                                <p class="text-gray-600">santoshpanthi@example.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-gray-800 mt-10 mb-6">सामाजिक सञ्जाल</h3>
+                    
+                    <div class="flex space-x-4">
+                        <a href="#" class="gradient-bg p-3 rounded-full text-white hover:opacity-80 transition-opacity">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="gradient-bg p-3 rounded-full text-white hover:opacity-80 transition-opacity">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="gradient-bg p-3 rounded-full text-white hover:opacity-80 transition-opacity">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="gradient-bg p-3 rounded-full text-white hover:opacity-80 transition-opacity">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <form id="contact-form" class="bg-gray-50 p-6 rounded-2xl shadow-md">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 mb-2">नाम</label>
+                            <input type="text" id="name" class="form-input w-full px-4 py-3 rounded-lg focus:outline-none" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 mb-2">इमेल</label>
+                            <input type="email" id="email" class="form-input w-full px-4 py-3 rounded-lg focus:outline-none" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 mb-2">सन्देश</label>
+                            <textarea id="message" rows="5" class="form-input w-full px-4 py-3 rounded-lg focus:outline-none" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full gradient-bg text-white py-3 rounded-lg font-medium btn-hover">
+                            पठाउनुहोस्
+                        </button>
+                        
+                        <div id="form-message" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-lg"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold">सन्तोष पन्थी</h3>
+                    <p class="opacity-80">नेपाली दोहोरी गायक</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-white hover:opacity-80 transition-opacity">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:opacity-80 transition-opacity">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:opacity-80 transition-opacity">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:opacity-80 transition-opacity">
+                        <i class="fab fa-tiktok text-xl"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="opacity-80">&copy; <span id="current-year"></span> सन्तोष पन्थी. सर्वाधिकार सुरक्षित.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative w-full max-w-4xl">
+            <button id="close-modal" class="absolute -top-10 right-0 text-white text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <video id="modal-video" class="w-full rounded-lg" controls>
+                Your browser does not support the video tag.
+            </video>
+        </div>
     </div>
-    <div class="md:hidden">
-      <button id="menu-btn" class="text-2xl"><i class="fas fa-bars"></i></button>
-    </div>
-  </div>
-  <div id="mobile-menu" class="hidden md:hidden px-4 pb-3 flex flex-col space-y-2 bg-white/90">
-    <a href="#home" class="hover:text-purple-600">गृहपृष्ठ</a>
-    <a href="#about" class="hover:text-purple-600">परिचय</a>
-    <a href="#music" class="hover:text-purple-600">संगीत</a>
-    <a href="#gallery" class="hover:text-purple-600">ग्यालरी</a>
-    <a href="#videos" class="hover:text-purple-600">भिडियो</a>
-    <a href="#contact" class="hover:text-purple-600">सम्पर्क</a>
-  </div>
-</nav>
 
-<!-- HERO -->
-<section id="home" class="min-h-screen flex flex-col md:flex-row items-center justify-center pt-24 relative overflow-hidden">
-  <div class="absolute w-40 h-40 bg-purple-300 rounded-full opacity-20 top-20 left-10 floating"></div>
-  <div class="absolute w-60 h-60 bg-pink-300 rounded-full opacity-20 bottom-10 right-10 floating" style="animation-delay:2s;"></div>
-
-  <div class="md:w-1/2 text-center md:text-left px-4" data-aos="fade-right">
-    <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-4">सन्तोष पन्थी</h1>
-    <p class="text-lg md:text-xl mb-6 text-gray-700">नेपालका उदाउँदो दोहोरी गायक</p>
-    <a href="#music" class="gradient-btn px-6 py-3 rounded-full shadow-lg hover:scale-105 transition transform inline-block">मेरो संगीत सुन्नुहोस्</a>
-  </div>
-
-  <div class="md:w-1/2 flex justify-center mt-12 md:mt-0" data-aos="fade-left">
-    <div class="hero-circle pulse overflow-hidden">
-      <img src="p.jpg" alt="Santosh Panthee" class="w-full h-full object-cover">
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="py-20 bg-gradient-to-b from-purple-50 to-white relative overflow-hidden">
-  <h2 class="text-4xl text-center font-bold mb-12 gradient-text" data-aos="fade-up">परिचय / जीवन यात्रा</h2>
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 px-4">
-    <div class="md:w-2/5" data-aos="fade-right">
-      <img src="about.jpg" alt="About Santosh" class="about-square shadow-xl">
-    </div>
-    <div class="md:w-3/5" data-aos="fade-left">
-      <p class="mb-4 text-gray-700">सन्तोष पन्थी नेपाली संगीत जगतमा उदाउँदै गरेको एक होनहार दोहोरी गायक हुन्। उनको जन्म गुल्मी जिल्लामा भएको हो।</p>
-      <p class="mb-4 text-gray-700">स्थानीय मेलापात र कार्यक्रमहरूमा सक्रिय भई उनले आफ्नो गायन यात्रा सुरु गरे।</p>
-      <p class="mb-4 text-gray-700">संगीतमार्फत् संस्कृति जोगाउने र नयाँ पुस्तालाई दोहोरीप्रति आकर्षित गर्ने उद्देश्य उनका लक्ष्य हुन्।</p>
-      <div class="flex flex-wrap gap-3 mt-6">
-        <span class="px-4 py-2 bg-purple-100 rounded-full">दोहोरी गायक</span>
-        <span class="px-4 py-2 bg-pink-100 rounded-full">लोक धुन</span>
-        <span class="px-4 py-2 bg-green-100 rounded-full">भविष्यका स्टार</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MUSIC -->
-<section id="music" class="py-20">
-  <h2 class="text-4xl font-bold text-center mb-12 gradient-text" data-aos="fade-up">मेरो संगीत</h2>
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-    <div class="p-6 bg-white shadow-lg rounded-2xl" data-aos="flip-left">
-      <h3 class="text-2xl font-bold mb-2">रेलीमै</h3>
-      <audio controls class="w-full">
-        <source src="song1.mp3" type="audio/mpeg">
-        तपाईंको ब्राउजरले audio element support गर्दैन।
-      </audio>
-    </div>
-    <div class="p-6 bg-white shadow-lg rounded-2xl" data-aos="flip-right">
-      <h3 class="text-2xl font-bold mb-2">रन्का बुँदे रन्का</h3>
-      <audio controls class="w-full">
-        <source src="song2.mp3" type="audio/mpeg">
-        तपाईंको ब्राउजरले audio element support गर्दैन।
-      </audio>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery" class="py-20 bg-gradient-to-b from-white to-purple-50">
-  <h2 class="text-4xl text-center font-bold mb-12 gradient-text" data-aos="fade-up">ग्यालरी</h2>
-  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
-    <img src="p.jpg" class="gallery-img rounded-xl shadow-lg" data-aos="zoom-in">
-    <img src="about.jpg" class="gallery-img rounded-xl shadow-lg" data-aos="zoom-in" data-aos-delay="100">
-    <img src="p.jpg" class="gallery-img rounded-xl shadow-lg" data-aos="zoom-in" data-aos-delay="200">
-  </div>
-</section>
-
-<!-- VIDEOS -->
-<section id="videos" class="py-20">
-  <h2 class="text-4xl font-bold text-center mb-12 gradient-text" data-aos="fade-up">भिडियोहरू</h2>
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-    <div class="rounded-xl overflow-hidden shadow-lg" data-aos="fade-right">
-      <video controls class="w-full rounded-xl">
-        <source src="video.mp4" type="video/mp4">
-        तपाईंको browserले video element support गर्दैन।
-      </video>
-      <h3 class="text-xl font-bold mt-2">रेलीमै (आधिकारिक)</h3>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="py-20 bg-gradient-to-b from-purple-50 to-white">
-  <h2 class="text-4xl font-bold text-center mb-12 gradient-text" data-aos="fade-up">सम्पर्क</h2>
-  <div class="max-w-4xl mx-auto px-4">
-    <form id="contact-form" class="grid grid-cols-1 gap-6" onsubmit="event.preventDefault(); alert('सन्देश पठाइयो!'); this.reset();">
-      <input type="text" placeholder="नाम" class="p-3 rounded-lg border border-gray-300">
-      <input type="email" placeholder="इमेल" class="p-3 rounded-lg border border-gray-300">
-      <textarea placeholder="सन्देश" rows="5" class="p-3 rounded-lg border border-gray-300"></textarea>
-      <button type="submit" class="gradient-btn p-3 rounded-lg shadow-lg hover:scale-105 transition transform">पठाउनुहोस्</button>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-gray-200 py-8 mt-12">
-  <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-    <p class="font-bold gradient-text">सन्तोष पन्थी © <span id="year"></span></p>
-    <div class="flex gap-4 mt-4 md:mt-0">
-      <a href="#" class="text-accent text-xl"><i class="fab fa-facebook"></i></a>
-      <a href="#" class="text-accent text-xl"><i class="fab fa-facebook"></i></a>
-      <a href="#" class="text-accent text-xl"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="text-accent text-xl"><i class="fab fa-youtube"></i></a>
-      <a href="#" class="text-accent text-xl"><i class="fab fa-tiktok"></i></a>
-    </div>
-  </div>
-
-  <div class="text-center mt-6 text-gray-500">
-    <p>© <span id="currentYear"></span> सन्तोष पन्थी. सबै अधिकार सुरक्षित।</p>
-  </div>
-</footer>
-
-<!-- Back to top button -->
-<button id="back-to-top" class="fixed bottom-6 right-6 bg-gold text-white p-3 rounded-full shadow-lg hover:bg-goldlight transition-all duration-300 hidden">
-  <i class="fas fa-arrow-up"></i>
-</button>
-
-<!-- Scripts -->
-<script>
-  // Set current year
-  document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-  // Back to top functionality
-  const backToTopBtn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 400){
-      backToTopBtn.classList.remove('hidden');
-    } else {
-      backToTopBtn.classList.add('hidden');
-    }
-  });
-
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // Animate elements on scroll using AOS (already included in head)
-  AOS.init({
-    duration: 1200,
-    once: true,
-    easing: 'ease-in-out',
-    offset: 100
-  });
-
-  // Optional: floating animations for fun
-  const floatElems = document.querySelectorAll('.floating-element');
-  floatElems.forEach((el, idx) => {
-    el.style.animationDelay = `${idx * 0.5}s`;
-  });
-
-  // Smooth scrolling for nav links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e){
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if(target){
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-</script>
-
-<!-- Optional: extra animations for hero & sections -->
-<style>
-  /* Floating badges */
-  .badge {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    margin: 0.2rem;
-    font-size: 0.8rem;
-    font-weight: bold;
-    border-radius: 9999px;
-    background: linear-gradient(135deg, #ff9a8b, #ff6a88);
-    color: white;
-    transform: translateY(0);
-    animation: floaty 4s ease-in-out infinite;
-  }
-
-  .badge:nth-child(2){ animation-delay: 0.3s; }
-  .badge:nth-child(3){ animation-delay: 0.6s; }
-
-  @keyframes floaty {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
-</style>
-
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                });
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Audio player functionality
+            const audioPlayers = {};
+            
+            document.querySelectorAll('.play-btn').forEach(btn => {
+                const audioId = btn.getAttribute('data-audio');
+                const audio = document.getElementById(audioId);
+                const progressBar = document.getElementById('progress' + audioId.slice(-1));
+                const currentTimeEl = document.getElementById('currentTime' + audioId.slice(-1));
+                const durationEl = document.getElementById('duration' + audioId.slice(-1));
+                
+                audioPlayers[audioId] = {
+                    audio: audio,
+                    progressBar: progressBar,
+                    currentTimeEl: currentTimeEl,
+                    durationEl: durationEl,
+                    isPlaying: false
+                };
+                
+                // Format time function
+                function formatTime(seconds) {
+                    const min = Math.floor(seconds / 60);
+                    const sec = Math.floor(seconds % 60);
+                    return `${min}:${sec < 10 ? '0' + sec : sec}`;
+                }
+                
+                // Set audio duration
+                audio.addEventListener('loadedmetadata', function() {
+                    durationEl.textContent = formatTime(audio.duration);
+                });
+                
+                // Update progress bar
+                audio.addEventListener('timeupdate', function() {
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    progressBar.style.width = percent + '%';
+                    currentTimeEl.textContent = formatTime(audio.currentTime);
+                });
+                
+                // Play/pause button
+                btn.addEventListener('click', function() {
+                    const player = audioPlayers[audioId];
+                    
+                    if (player.isPlaying) {
+                        audio.pause();
+                        btn.innerHTML = '<i class="fas fa-play mr-2"></i> बजाउनुहोस्';
+                    } else {
+                        // Pause all other audios
+                        Object.keys(audioPlayers).forEach(id => {
+                            if (id !== audioId && audioPlayers[id].isPlaying) {
+                                audioPlayers[id].audio.pause();
+                                audioPlayers[id].isPlaying = false;
+                                document.querySelector(`.play-btn[data-audio="${id}"]`).innerHTML = '<i class="fas fa-play mr-2"></i> बजाउनुहोस्';
+                            }
+                        });
+                        
+                        audio.play();
+                        btn.innerHTML = '<i class="fas fa-pause mr-2"></i> रोक्नुहोस्';
+                    }
+                    
+                    player.isPlaying = !player.isPlaying;
+                });
+            });
+            
+            // Video modal functionality
+            const videoModal = document.getElementById('video-modal');
+            const modalVideo = document.getElementById('modal-video');
+            
+            document.querySelectorAll('.play-video, .watch-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videoId = this.getAttribute('data-video');
+                    const videoSource = document.querySelector(`#${videoId} source`).src;
+                    
+                    modalVideo.src = videoSource;
+                    videoModal.classList.remove('hidden');
+                    modalVideo.play();
+                });
+            });
+            
+            document.getElementById('close-modal').addEventListener('click', function() {
+                modalVideo.pause();
+                videoModal.classList.add('hidden');
+            });
+            
+            // Download buttons
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const fileName = this.getAttribute('data-file');
+                    alert('डाउनलोड सुरु हुँदैछ: ' + fileName);
+                    // In a real implementation, this would trigger a download
+                });
+            });
+            
+            // Share buttons
+            document.querySelectorAll('.share-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const title = this.getAttribute('data-title');
+                    if (navigator.share) {
+                        navigator.share({
+                            title: title,
+                            text: 'सन्तोष पन्थीको संगीत सुन्नुहोस्',
+                            url: window.location.href
+                        })
+                        .catch(console.error);
+                    } else {
+                        alert('शेयर गर्न: ' + title);
+                    }
+                });
+            });
+            
+            // Contact form handling
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission
+                formMessage.textContent = 'धन्यवाद! तपाईंको सन्देश सफलतापूर्वक पठाइयो।';
+                formMessage.classList.remove('hidden');
+                formMessage.classList.add('bg-green-100', 'text-green-700');
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 5000);
+            });
+        });
+    </script>
 </body>
 </html>
-
